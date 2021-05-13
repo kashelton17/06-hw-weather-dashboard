@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h1>Weather Dashboard <i class="medium material-icons">wb_sunny</i></h1>
+        <h1 class="blue-text text-lighten-2">Weather Dashboard <i class="medium material-icons yellow-text">wb_sunny</i></h1>
         
         <h2>Type in a city and get started!</h2>
     </header>
@@ -20,35 +20,102 @@
           <div class="card">
             <div class="card-image">
               <input class="input-field" id="cityInput" placeholder="Enter City"> 
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">GO</i></a>
+              <button id="get-weather" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add_location</i></button>
             </div>
             <div class="card-content">
               <p>Enter the name of a City then press 'GO'</p>
             </div>
           </div>
         </div>
-        <div class="col s12 m2">
-            <div class="card">
-              <div class="card-image card-title">
-                <p>Day one</p>
-                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">GO</i></a>
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title currentWeather">Current Weather</span>
+                <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
               </div>
-              <div class="card-content">
-                <p>This is the weather</p>
               </div>
             </div>
           </div>
+        </div>
+  </div>
           
       </div>
       <div class="row">
-        <div class="col s12 m3">
+        <div class="col s12 m2">
           <div class="card-panel teal">
-            <h3 class='card-title'>Search History</h3>
-            <span class="white-text">list of cities
-            </span>
+            <h3 class='card-title' style='font-size: x-large;'>Search History</h3>
+            <ul id="search-list" class="white-text list">
+            </ul>
           </div>
         </div>
+        <div id='day1' class="col s12 m2 day-card">
+          <div class="card">
+            <div class="card-image card-title">
+              <h3 class='date-title'>Day one</h3>
+              <img class="icons"></img>
+            </div>
+            <div class="card-content">
+              <p class='weather temp'>This is the weather</p>
+              <p class='weather wind'>This is the weather</p>
+              <p class='weather humidity'>This is the weather</p>
+            </div>
+          </div>
       </div>
+      <div id='day2' class="col s12 m2 day-card">
+        <div class="card">
+          <div class="card-image card-title">
+            <h3 class='date-title'>Day two</h3>
+            <img class="icons"></img>
+          </div>
+          <div class="card-content">
+            <p class='weather temp'>This is the weather</p>
+            <p class='weather wind'>This is the weather</p>
+            <p class='weather humidity'>This is the weather</p>
+          </div>
+        </div>
+    </div>
+    <div id='day3' class="col s12 m2 day-card">
+      <div class="card">
+        <div class="card-image card-title">
+          <h3 class='date-title'>Day three</h3>
+          <img class="icons"></img>
+        </div>
+        <div class="card-content">
+          <p class='weather temp'>This is the weather</p>
+          <p class='weather wind'>This is the weather</p>
+          <p class='weather humidity'>This is the weather</p>
+        </div>
+      </div>
+  </div>
+  <div id='day4' class="col s12 m2 day-card">
+    <div class="card">
+      <div class="card-image card-title">
+        <h3 class='date-title'>Day four</h3>
+        <img  class="icons"></img>
+      </div>
+      <div class="card-content">
+        <p class='weather temp'>This is the weather</p>
+        <p class='weather wind'>This is the weather</p>
+        <p class='weather humidity'>This is the weather</p>
+      </div>
+    </div>
+</div>
+<div id='day5' class="col s12 m2 day-card">
+  <div class="card">
+    <div class="card-image card-title">
+      <h3 class='date-title'>Day five</h3>
+        <img class="icons"></img>
+    </div>
+    <div class="card-content">
+      <p class='weather temp'>This is the weather</p>
+      <p class='weather wind'>This is the weather</p>
+      <p class='weather humidity'>This is the weather</p>
+    </div>
+  </div>
+      </div>
+      
     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
