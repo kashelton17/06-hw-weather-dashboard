@@ -22,7 +22,7 @@ for (var j=0;j<dayCard.length;j++) {
 }
 
 // getting the local storage for the search history
-
+localStorage.setItem('history', JSON.stringify(['Searches: ']))
 var searchHistory = JSON.parse(localStorage.getItem('history'))
 if (searchHistory) {
     console.log('search History is not null')
