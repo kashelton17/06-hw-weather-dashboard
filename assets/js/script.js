@@ -7,7 +7,19 @@ var humidityEl = document.querySelectorAll('.humidity')
 var windEl = document.querySelectorAll('.wind')
 var dateEl = document.querySelectorAll('.date-title')
 var imgEl = document.querySelectorAll('.icons')
+var currentTitle = document.getElementById('currentWeather')
+var curHumidityEl = document.querySelector('.cur-humidity')
+var curWindEl = document.querySelector('.cur-wind')
+var curTempEl = document.querySelector('.cur-temp')
+var curUvEl = document.querySelector('.cur-uv')
+var curIconEl = document.querySelectorAll('.current-icon')
+var weatherCard = document.querySelector('.weather-card')
+var dayCard = document.querySelectorAll('.day-card')
 
+$(weatherCard).hide()
+for (var j=0;j<dayCard.length;j++) {
+    $(dayCard[j]).hide()
+}
 
 // getting the local storage for the search history
 var searchHistory = [localStorage.getItem('history')]
@@ -26,7 +38,7 @@ function GetDates(startDate, daysToAdd) {
     for (var i = 0; i <= daysToAdd; i++) {
         var currentDate = new Date();
         currentDate.setDate(startDate.getDate() + i);
-        aryDates.push(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear());
+        aryDates.push(currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear());
     }
 
     return aryDates;
@@ -72,8 +84,7 @@ var cityCoord = {}
 
 // adding event listener to button for searching weather by city
 buttonEl.addEventListener('click', function(event){
-    // var cityName = cityInput.value
-    var cityName = 'Chicago'
+    var cityName = cityInput.value
     cityInput.value = ''
     if (cityName.value == '') {
         var warning = document.createElement('p')
@@ -98,13 +109,17 @@ function getCoords(city) {
         })
         .then(function(data) {
             for (var i=0; i<data.length; i++) {
-                if (city === data[i].name && data[i].country === 'US') {
+                if (city.toLowerCase() === data[i].name.toLowerCase() && data[i].country === 'US') {
+                    $(weatherCard).show()
+                    for (var j=0;j<dayCard.length;j++) {
+                        $(dayCard[j]).show()
+                    }
                     console.log('coordinates',data[i].coord)
                     cityCoord.lon = (data[i].coord.lon)
                     cityCoord.lat = (data[i].coord.lat)
                     console.log(cityCoord.lon, cityCoord.lat)
                     gotCoords = true
-                    getUV(cityCoord)
+                    getUV(cityCoord, city)
                     return cityCoord, gotCoords
                 }   
             }
@@ -112,7 +127,7 @@ function getCoords(city) {
         })
 }
 
-function getUV(cityCoord) {
+function getUV(cityCoord, cityName) {
     if (gotCoords === true) {
         var lat = cityCoord.lat
         var lon = cityCoord.lon
@@ -126,17 +141,18 @@ function getUV(cityCoord) {
         .then(function(data) {
             console.log(data)
             var dailyWeather = data.daily 
+            currentConditions(data, cityName)
             for (var i=0; i< 5; i++) {
                 var temp = dailyWeather[i].temp.day
                 temp = (Number(temp) - 273.15)*(9/5) +32
                 var wind = dailyWeather[i].wind_speed
-                var humidity = dailyWeather[i].humidity
-                tempEl[i].textContent = 'Temp: ' + String(temp).substring(0,4) + 'F'
-                windEl[i].textContent = 'Wind: ' + wind + 'mph'
-                humidityEl[i].textContent = 'Humidity: ' + humidity + '%'
+                var humidity = dailyWeather[i].humidity 
+                tempEl[i].textContent = 'Temp: ' + String(temp).substring(0,4) + ' F'
+                windEl[i].textContent = 'Wind: ' + wind + ' mph'
+                humidityEl[i].textContent = 'Humidity: ' + humidity + ' %'
                 var icon = dailyWeather[i].weather[0].icon
                 getIcons(icon, i)
-                dateEl.textContent = String(aryDates[i+1])
+                dateEl[i].textContent = String(aryDates[i+1])
                 console.log(aryDates[i])
                 console.log(temp, wind, humidity)
             }
@@ -150,7 +166,41 @@ function getIcons(icon, i) {
     console.log(icon)
     var srcIcon = `http://openweathermap.org/img/wn/${icon}@2x.png`
     imgEl[i].setAttribute('src', srcIcon)
+}
 
+function getCurIcons(icon1) {
+    console.log('icon1', icon1)
+    var srcCurIcon = `http://openweathermap.org/img/wn/${icon1}@2x.png`
+    curIconEl[0].setAttribute('src', srcCurIcon)
+
+}
+
+
+
+// setting up the current conditions of the city choosen
+function currentConditions(weather, cityName) {
+    console.log('cityname' ,cityName)
+    var today = moment().format('MM/DD/YYYY')
+    console.log(today)
+    currentTitle.textContent = cityName + ' ' + today
+    var curTemp = weather.current.feels_like
+    curTemp = (Number(curTemp) - 273.15)*(9/5) +32
+    var curWind = weather.current.wind_speed
+    var curHumidity = weather.current.humidity
+    var curUv = weather.current.uvi
+    var curIcon = weather.current.weather[0].icon
+    getCurIcons(curIcon, 0)
+    curTempEl.textContent = 'Temp: ' + String(curTemp).substring(0,4) + ' F'
+    curWindEl.textContent = 'Wind: ' + curWind + ' mph'
+    curHumidityEl.textContent = 'Humidity: ' + curHumidity + ' %'
+    curUvEl.textContent =  + curUv 
+    if (Number(curUv) <= 4) {
+        curUvEl.setAttribute('style', 'background: green')
+    } else if(Number(curUv) >= 8) {
+        curUvEl.setAttribute('style', 'background: red')
+    } else {
+        curUvEl.setAttribute('style', 'background: red')
+    }
 }
 
 

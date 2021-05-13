@@ -18,3 +18,24 @@ header {
     height: 5%;
     padding:0%
 }
+
+#currentWeather {
+    color: whitesmoke
+}
+
+p {
+    font-size: large;
+}
+#currentWeather {
+    font-size: xx-large;
+}
+.date-title {
+    font-size: larger;
+    padding: 2%;
+}
+.cur-uv {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px
+}
