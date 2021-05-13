@@ -23,13 +23,14 @@ for (var j=0;j<dayCard.length;j++) {
 
 // getting the local storage for the search history
 var searchHistory = [localStorage.getItem('history')]
-searchHistory = searchHistory[0].split(',')
-for (var i=0; i < 10; i++){
-    var listItem = document.createElement('li')
-    listItem.textContent = searchHistory[searchHistory.length - i]
-    historyEl.append(listItem)
+if (searchHistory) {
+    searchHistory = searchHistory[0].split(',')
+    for (var i=0; i < 10; i++){
+        var listItem = document.createElement('li')
+        listItem.textContent = searchHistory[searchHistory.length - i]
+        historyEl.append(listItem)
+    }
 }
-
 //getting days for the five day forecast, source: stackoverflow https://stackoverflow.com/questions/10032456/how-to-get-next-seven-days-from-x-and-format-in-js/10032641
 var aryDates = [];
 function GetDates(startDate, daysToAdd) {

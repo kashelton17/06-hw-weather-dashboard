@@ -16,7 +16,7 @@ header {
 .icons {
     width: 10%;
     height: 5%;
-    padding:0%
+
 }
 
 #currentWeather {
@@ -38,4 +38,8 @@ p {
     padding-right: 4px;
     padding-top: 2px;
     padding-bottom: 2px
+}
+
+.five-card {
+    background:rgb(204, 203, 204);
 }
