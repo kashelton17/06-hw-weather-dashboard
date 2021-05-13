@@ -17,6 +17,8 @@ var weatherCard = document.querySelector('.weather-card')
 var dayCard = document.querySelectorAll('.day-card')
 var warningEl = document.querySelector('.warning')
 
+$(warningEl).hide()
+
 $(weatherCard).hide()
 for (var j=0;j<dayCard.length;j++) {
     $(dayCard[j]).hide()
@@ -99,11 +101,10 @@ buttonEl.addEventListener('click', function(event){
     console.log(cityName)
     cityInput.value = ''
     if (cityName[0] === '') {
-        var warning = document.createElement('p')
-        warning.textContent = 'Please enter valid city'
-        warning.setAttribute('style', 'color: red')
-        warningEl.append(warning)
+        warningEl.setAttribute('style', 'color: red')
+        warningEl.show()
     } else {
+        $(warningEl).hide()
         getCoords(cityName)
         // getWeather(cityName)
     }
