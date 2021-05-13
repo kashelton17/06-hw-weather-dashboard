@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -19,11 +20,12 @@
         <div class="col s12 m2">
           <div class="card">
             <div class="card-image">
-              <input class="input-field" id="cityInput" placeholder="Enter City"> 
+              <label for="input-field" id='tags'> </label>
+                <input class="input-field" id="cityInput" placeholder="Enter City, Country Code"> 
               <button id="get-weather" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add_location</i></button>
             </div>
             <div class="card-content">
-              <p>Enter the name of a City then press 'GO'</p>
+              <p>Enter the name of a City, Country (country code)</p>
             </div>
           </div>
         </div>
@@ -119,7 +121,11 @@
   </div>
       </div>
       
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+     
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js    "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="assets/js/script.js"></script>

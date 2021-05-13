@@ -22,11 +22,13 @@ for (var j=0;j<dayCard.length;j++) {
 }
 
 // getting the local storage for the search history
-var searchHistory = [localStorage.getItem('history')]
-if (searchHistory[0]) {
+
+var searchHistory = JSON.parse(localStorage.getItem('history'))
+if (searchHistory) {
     console.log('search History is not null')
-    searchHistory = searchHistory[0].split(',')
+    
     for (var i=0; i < 10; i++){
+        console.log(searchHistory)
         var listItem = document.createElement('li')
         listItem.textContent = searchHistory[searchHistory.length - i]
         historyEl.append(listItem)
@@ -87,50 +89,58 @@ var cityCoord = {}
 // adding event listener to button for searching weather by city
 buttonEl.addEventListener('click', function(event){
     var cityName = cityInput.value
+    cityName = cityName.split(', ')
+    console.log(cityName)
     cityInput.value = ''
     if (cityName.value == '') {
         var warning = document.createElement('p')
         warning.textContent = 'Please enter valid city'
         cityInput.append(warning)
     } else {
-        searchHistory.push(cityName)
-        localStorage.setItem('history', [searchHistory])
-        var listItem = document.createElement('li')
-        listItem.textContent = cityName
-        historyEl.append(listItem)
         getCoords(cityName)
         // getWeather(cityName)
     }
 })
 
+var data = []
+
 var gotCoords = false
+var requestFile = "city.list.json"
+fetch(requestFile)
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(stuff) {
+        data = stuff
+        return data
+    })
 
 //getting the coordinates of a city
 function getCoords(city) {
-    var requestFile = "city.list.json"
-    fetch(requestFile)
-        .then(function(response) {
-            return response.json()
-        })
-        .then(function(data) {
-            for (var i=0; i<data.length; i++) {
-                var lowerCity = city.substring(0,1).toUpperCase() + city.substring(1)
-                if (city.toLowerCase() === data[i].name.toLowerCase() && data[i].country === 'US') {
-                    $(weatherCard).show()
-                    for (var j=0;j<dayCard.length;j++) {
-                        $(dayCard[j]).show()
-                    }
-                    console.log('coordinates',data[i].coord)
-                    cityCoord.lon = (data[i].coord.lon)
-                    cityCoord.lat = (data[i].coord.lat)
-                    console.log(cityCoord.lon, cityCoord.lat)
-                    gotCoords = true
-                    getUV(cityCoord, lowerCity)
-                    return cityCoord, gotCoords
-                }   
+    console.log(city[1])
+    console.log(data[400])
+    for (var i=0; i<data.length; i++) {
+        var lowerCity = city[0].substring(0,1).toUpperCase() + city[0].substring(1)
+        if (city[0].toLowerCase() === data[i].name.toLowerCase() && (data[i].country.toLowerCase() === city[1].toLowerCase() || data[i].state.toLowerCase() === city[0][1].toLowerCase())) {
+            searchHistory.push([data[i].name + ' ' + data[i].country])
+            localStorage.setItem('history', JSON.stringify(searchHistory))
+            var listItem = document.createElement('li')
+            listItem.textContent = data[i].name + ' ' + data[i].country
+            historyEl.append(listItem)
+            console.log(data[i].name)
+            $(weatherCard).show()
+            for (var j=0;j<dayCard.length;j++) {
+                $(dayCard[j]).show()
             }
-            
-        })
+            console.log('coordinates',data[i].coord)
+            cityCoord.lon = (data[i].coord.lon)
+            cityCoord.lat = (data[i].coord.lat)
+            console.log(cityCoord.lon, cityCoord.lat)
+            gotCoords = true
+            getUV(cityCoord, lowerCity)
+            return cityCoord, gotCoords
+        }   
+    }
 }
 
 function getUV(cityCoord, cityName) {
