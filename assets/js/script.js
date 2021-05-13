@@ -109,6 +109,7 @@ function getCoords(city) {
         })
         .then(function(data) {
             for (var i=0; i<data.length; i++) {
+                var lowerCity = city.substring(0,1).toUpperCase() + city.substring(1)
                 if (city.toLowerCase() === data[i].name.toLowerCase() && data[i].country === 'US') {
                     $(weatherCard).show()
                     for (var j=0;j<dayCard.length;j++) {
@@ -119,7 +120,7 @@ function getCoords(city) {
                     cityCoord.lat = (data[i].coord.lat)
                     console.log(cityCoord.lon, cityCoord.lat)
                     gotCoords = true
-                    getUV(cityCoord, city)
+                    getUV(cityCoord, lowerCity)
                     return cityCoord, gotCoords
                 }   
             }
