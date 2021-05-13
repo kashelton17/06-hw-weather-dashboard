@@ -23,7 +23,7 @@ for (var j=0;j<dayCard.length;j++) {
 
 // getting the local storage for the search history
 var searchHistory = [localStorage.getItem('history')]
-if (searchHistory) {
+if (searchHistory != null) {
     searchHistory = searchHistory[0].split(',')
     for (var i=0; i < 10; i++){
         var listItem = document.createElement('li')
