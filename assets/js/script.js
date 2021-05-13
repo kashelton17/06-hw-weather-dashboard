@@ -95,7 +95,7 @@ buttonEl.addEventListener('click', function(event){
     if (cityName.value == '') {
         var warning = document.createElement('p')
         warning.textContent = 'Please enter valid city'
-        cityInput.append(warning)
+        cityInput.closest('p').append(warning)
     } else {
         getCoords(cityName)
         // getWeather(cityName)
@@ -121,7 +121,7 @@ function getCoords(city) {
     console.log(data[400])
     for (var i=0; i<data.length; i++) {
         var lowerCity = city[0].substring(0,1).toUpperCase() + city[0].substring(1)
-        if (city[0].toLowerCase() === data[i].name.toLowerCase() && (data[i].country.toLowerCase() === city[1].toLowerCase() || data[i].state.toLowerCase() === city[0][1].toLowerCase())) {
+        if (city[0].toLowerCase() === data[i].name.toLowerCase() && (data[i].country.toLowerCase() === city[1].toLowerCase() || data[i].state.toLowerCase() === city[1].toLowerCase())) {
             searchHistory.push([data[i].name + ' ' + data[i].country])
             localStorage.setItem('history', JSON.stringify(searchHistory))
             var listItem = document.createElement('li')
