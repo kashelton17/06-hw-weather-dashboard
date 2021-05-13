@@ -95,6 +95,9 @@ buttonEl.addEventListener('click', function(event){
     } else {
         searchHistory.push(cityName)
         localStorage.setItem('history', [searchHistory])
+        var listItem = document.createElement('li')
+        listItem.textContent = cityName
+        historyEl.append(listItem)
         getCoords(cityName)
         // getWeather(cityName)
     }
@@ -202,7 +205,7 @@ function currentConditions(weather, cityName) {
     } else if(Number(curUv) >= 8) {
         curUvEl.setAttribute('style', 'background: red')
     } else {
-        curUvEl.setAttribute('style', 'background: red')
+        curUvEl.setAttribute('style', 'background: gold')
     }
 }
 
