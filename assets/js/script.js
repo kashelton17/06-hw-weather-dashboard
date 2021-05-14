@@ -151,7 +151,7 @@ function getCoords(city) {
     } else if(city.length === 1){
         for (var i=0; i<data.length; i++) {
             if (city[0].toLowerCase() === data[i].name.toLowerCase()) {
-                searchHistory.push([data[i].name + ' ' + data[i].country])
+                historyList.unshift([data[i].name + ' ' + data[i].country])
                 localStorage.setItem('history', JSON.stringify(searchHistory))
                 var listItem = document.createElement('li')
                 listItem.textContent = data[i].name + ' ' + data[i].country
