@@ -152,7 +152,7 @@ function getCoords(city) {
         for (var i=0; i<data.length; i++) {
             if (city[0].toLowerCase() === data[i].name.toLowerCase()) {
                 historyList.unshift([data[i].name + ' ' + data[i].country])
-                localStorage.setItem('history', JSON.stringify(searchHistory))
+                localStorage.setItem('history', JSON.stringify(historyList))
                 var listItem = document.createElement('li')
                 listItem.textContent = data[i].name + ' ' + data[i].country
                 historyEl.append(listItem)
