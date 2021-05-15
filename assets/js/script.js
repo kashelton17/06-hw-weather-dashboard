@@ -24,6 +24,7 @@ for (var j=0;j<dayCard.length;j++) {
     $(dayCard[j]).hide()
 }
 
+
 // getting the local storage for the search history
 var historyList =[]
 var searchHistory = localStorage.getItem('history')
@@ -122,6 +123,17 @@ fetch(requestFile)
         data = stuff
         return data
     })
+
+historyEl.addEventListener('click', function(event) {
+    var shCity = event.target
+    console.log(event.target)
+    
+    var searchValue = shCity.textContent
+    var twoValues = searchValue.substring(0, searchValue.length -3) + ', ' + searchValue.substring(searchValue.length-2)
+    var splitValues = twoValues.split(', ')
+    getCoords(splitValues)
+    
+})
 
 //getting the coordinates of a city
 function getCoords(city) {
