@@ -103,7 +103,7 @@ buttonEl.addEventListener('click', function(event){
     cityInput.value = ''
     if (cityName[0] === '') {
         warningEl.setAttribute('style', 'color: red')
-        warningEl.show()
+        $(warningEl).show()
     } else {
         $(warningEl).hide()
         getCoords(cityName)
@@ -137,10 +137,11 @@ historyEl.addEventListener('click', function(event) {
 
 //getting the coordinates of a city
 function getCoords(city) {
-
+    var resultArray = []
     if (city.length === 2) {
         for (var i=0; i<data.length; i++) {
             if (city[0].toLowerCase() === data[i].name.toLowerCase() && (data[i].country.toLowerCase() === city[1].toLowerCase() || data[i].state.toLowerCase() === city[1].toLowerCase())) {
+                resultArray.push(true)
                 historyList.unshift([data[i].name + ' ' + data[i].country])
                 localStorage.setItem('history', JSON.stringify(historyList))
                 var listItem = document.createElement('li')
@@ -159,10 +160,13 @@ function getCoords(city) {
                 getUV(cityCoord, (data[i].name + ', ' + data[i].country))
                 return cityCoord, gotCoords
             } 
+        } if (resultArray.length === 0) {
+            $(warningEl).show()
         }
     } else if(city.length === 1){
         for (var i=0; i<data.length; i++) {
             if (city[0].toLowerCase() === data[i].name.toLowerCase()) {
+                resultArray.push(true)
                 historyList.unshift([data[i].name + ' ' + data[i].country])
                 localStorage.setItem('history', JSON.stringify(historyList))
                 var listItem = document.createElement('li')
@@ -181,7 +185,11 @@ function getCoords(city) {
                 getUV(cityCoord, (data[i].name + ', ' + data[i].country))
                 return cityCoord, gotCoords
             }
+        } if (resultArray.length === 0) {
+            $(warningEl).show()
         }
+    } else {
+        $(warningEl).show()
     }
 
 }
@@ -240,7 +248,6 @@ function getCurIcons(icon1) {
 function currentConditions(weather, cityName) {
     console.log('cityname' ,cityName)
     var today = moment().format('MM/DD/YYYY')
-    console.log(today)
     currentTitle.textContent = cityName + ' ' + today
     var curTemp = weather.current.feels_like
     curTemp = (Number(curTemp) - 273.15)*(9/5) +32
