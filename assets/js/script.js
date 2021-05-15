@@ -94,7 +94,7 @@ var cityCoord = {}
 
 // adding event listener to button for searching weather by city
 buttonEl.addEventListener('click', function(event){
-    var cityName = cityInput.value
+    var cityName = cityInput.value.trim()
     cityName = cityName.split(', ')
     cityInput.value = ''
     if (cityName[0] === '') {
