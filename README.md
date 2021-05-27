@@ -11,3 +11,5 @@ Site link hosted on GitHub: https://kashelton17.github.io/06-hw-weather-dashboar
 ![preview image](./assets/weather-preview-1.png)
 
 License: MIT
+
+Contact info: kashelton17@gmail.com
