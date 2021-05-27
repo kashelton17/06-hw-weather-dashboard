@@ -7,6 +7,7 @@ Icons showing the weather conditions will appear as well as a color coded UV ind
 
 Site link hosted on GitHub: https://kashelton17.github.io/06-hw-weather-dashboard/
 
-![plot](./assets/06-hw-preview.png)
+![preview image](./assets/weather-preview-2.png)
+![preview image](./assets/weather-preview-1.png)
 
 License: MIT
